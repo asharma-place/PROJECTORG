@@ -1,0 +1,57 @@
+<template>
+    <!-- <div key= class="slds-col slds-size_3-of-12 slds-align_absolute-center slds-box course-tile" style="border: none; box-shadow:none"> -->
+    <div class="slds-col slds-size_9-of-12 slds-align_absolute-center slds-box course-tile" style="border: none; box-shadow:none">
+        <!-- <div class="hover-2"> -->
+        <article data-name="" class="slds-card slds-size_4-of-5 tile-size">
+            <div class="slds-card__header">
+                <header class="slds-align_absolute-center slds-has-flexi-truncate">
+                    <h2 class="slds-card__header-title" data-id="">
+                            {room.Name}
+                    </h2>
+                </header>
+            </div>
+                <img 
+                    src={image}
+                    alt="User Image" 
+                    height="300px" 
+                    width="310px"
+                    class="hover-2"
+                    ></img>
+            <div class="slds-card__body tile-class slds-card__body_inner slds-grid  slds-m-left_xx-small" style="height: 70px; overflow-wrap: break-word;">
+                    <span class="tile-text">{room.Description}</span>
+            </div>
+            <footer class="slds-card__footer">
+                <!-- <div> -->
+                    <span data-name="" title="" style="font-weight: bold; vertical-align: super; font-size: initial;">Price : ${room.Price}</span>
+                <!-- </div> -->
+                <div>
+                    <lightning-layout class="slds-align_absolute-center">
+                        <lightning-layout-item>
+                            <template if:false={disableButton2}>
+                                <lightning-combobox
+                                    name="guest"
+                                    placeholder={guests}
+                                    value={guests}
+                                    options={optionsPersons}
+                                    onchange={handleChangeGuests}
+                                    variant="label-hidden"
+                                    read-only={disableButton2}
+                                    class="slds-popover_edit slds-popover_body"
+                                ></lightning-combobox>
+                            </template>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small">
+                            <lightning-button value="" data-id="" variant="Brand" label={addLabel} disabled={disableButton2} onclick={handleAddToCart} class="slds-m-left_x-small"></lightning-button>
+                        </lightning-layout-item>
+                        <template if:true={disableButton2}>
+                            <lightning-layout-item padding="around-small">
+                                <lightning-button-icon value="" data-id="" variant="Brand" alternative-text="Remove" label="" icon-name="action:delete" onclick={handleRemove} size="large"></lightning-button-icon>
+                            </lightning-layout-item>
+                        </template> 
+                    </lightning-layout>
+                </div>
+            </footer>
+        </article>
+    <!-- </div> -->
+    </div>
+</template>

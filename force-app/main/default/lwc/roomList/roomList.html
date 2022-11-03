@@ -1,0 +1,16 @@
+<template>
+    <div if:true={showRoomList}>
+        <div class="slds-card" style="text-align: center;font-size: x-large;font-weight: bold;">
+            {title}
+        </div>
+        <lightning-layout horizontal-align="center" class="slds-wrap">
+            <template for:each={roomList} for:item="room">
+                <lightning-layout-item key={room.Id} size="4" padding="around-small">
+                    <c-room room={room} class="slds-col" selected-rooms={bookingRoomList}></c-room>
+                </lightning-layout-item>
+            </template>
+        </lightning-layout>
+        <br/>
+        <br/>
+    </div>
+</template>

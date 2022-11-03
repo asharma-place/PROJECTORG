@@ -1,0 +1,147 @@
+<template>
+
+    <div class="slds-align_absolute-center">
+        <template if:true={showSpinner}>
+            <lightning-spinner variant="brand" alternative-text="Loading"></lightning-spinner>
+        </template>
+    </div> 
+
+    <div if:true={showCart}>
+        <!-- <h1>IN CARTTTTTTTTTTTTTTTTTTTT</h1> -->
+        <!-- <lightning-card title="CArt">
+            <div class="slds-card slds-p-around_medium" style="height: 300px;">
+                <lightning-datatable
+                    key-field="roomId"
+                    data={bookingList}
+                    columns={columns}
+                    onrowselection={handleRowSelection}>
+                 </lightning-datatable>
+            </div>
+        </lightning-card> -->
+        <div class="slds-card " style="height: 400px;">
+            <header class="slds-p-around_medium" style="font-size:xx-large;">
+                <lightning-icon icon-name="utility:checkout"></lightning-icon>
+                Cart
+            </header>
+            <div class="slds-p-around_medium">
+                <!-- <c-cstm-datatable-data-types
+                    key-field="roomId"
+                    data={bookingList}
+                    columns={columns}
+                    >
+                 </c-cstm-datatable-data-types> -->
+                 <!-- <c-custom-data-table 
+                    key-field="roomId" 
+                    data={bookingList} 
+                    columns={columns}
+                    >
+                </c-custom-data-table> -->
+                <c-l-w-c-custom-datatable-type
+                    key-field="roomId"
+                    data={bookingList} 
+                    columns={columns}
+                    onpicklistchanged={handlePicklistChange}
+                    hide-checkbox-column>
+                </c-l-w-c-custom-datatable-type>
+            </div>
+        </div>
+        <div class="slds-card">
+            <footer class="slds-card__footer">
+                <div>
+                    <span style="font-weight: bold; font-size: larger;">Number of Persons : {Persons}</span>
+                </div>
+                <div>
+                    <span style="font-weight: bold; font-size: large;">Total Amount : Rs.{showTotalPrice}</span>
+                </div>
+            </footer>
+        </div>
+        <footer class="slds-card slds-card__footer">
+            <!-- <lightning-layout-item padding="around-small"> -->
+                <lightning-button variant="neutral" label="Go Back" icon-name="" onclick={handleGoBack} class="slds-m-left_x-small"></lightning-button>
+                <lightning-button variant="brand" label="Confirm Order" icon-name="" onclick={handleConfirmOrder} class="slds-m-left_large"></lightning-button>
+            <!-- </lightning-layout-item> -->
+        </footer>
+    </div>
+
+    <div if:false={showCart}>
+         
+        <!-- <div class="slds-align_absolute-center">
+            <template if:true={showSpinner}>
+                <lightning-spinner variant="brand" alternative-text="Loading"></lightning-spinner>
+            </template>
+        </div>    -->
+
+        <div class="slds-align_absolute-center">
+            <lightning-layout vertical-align="end" style="width:100%;" >   
+                <lightning-layout-item padding="around-small" size="3">
+                        <c-custom-lookup-l-w-c name="Contact Lookup" lookup-label="" object-api-name="Contact"
+                        selected-value={selectedContactName}  icon-name="standard:contact" onrecordselection={handleSearchContact}></c-custom-lookup-l-w-c>
+              </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-input type="search"
+                    data-id="searchRoom"
+                     value={sRoomValue}
+                     label=""
+                     placeholder="Search your Room"
+                     onchange={searchRoomChange}
+                     ></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" vertical-align="end" size="1">
+                    <lightning-button variant="brand" label="Search" icon-name="utility:search" onclick={handleSearchRoomClick} class="slds-m-left_x-small"></lightning-button>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" vertical-align="end" size="3">
+                    <lightning-button variant="neutral" label="Clear" icon-name="utility:search" onclick={handleClearSearchRoomClick} class="slds-m-left_x-small"></lightning-button>
+                </lightning-layout-item>
+                <!-- <lightning-layout-item padding="around-small" vertical-align="end" >
+                    <lightning-button variant="neutral" label="Clear" icon-name="utility:search" onclick={handleSearchRoomClick} class="slds-m-left_x-small"></lightning-button>
+                </lightning-layout-item> -->
+            </lightning-layout>
+        </div>    
+
+        <lightning-layout horizontal-align="center" if:true={showRadioFliter} style="padding-right: 10%;" >
+            <c-Radio-Group
+                          label=""
+                          options={options}
+                          value={value}
+                          orientation="horizontal"
+                          onchange={handleFilter}
+                          ></c-Radio-Group>
+        </lightning-layout>
+        <br/>
+        <template if:true={showRadioFliter}>
+                <template for:each={rtList} for:item="rt">
+                    <div key={rt.value}>
+                        <c-Hotel-Rooms r-category={rt.value} oncallroombook={handleRoomBook} selected-items={disableItems}></c-Hotel-Rooms>
+                    </div>
+                </template>
+        </template>
+        
+        <div class="slds-col slds-size_3-of-12 slds-align_absolute-center slds-box" style="border: none; box-shadow:none" if:true={showTotal}>
+            <article class="slds-card slds-size_5-of-5 tile-size slds-m-left_xx-large">
+                <!-- <div class="slds-card__header">
+                    <header class="slds-align_absolute-center slds-has-flexi-truncate">
+                        <h2 class="slds-card__header-title" >
+                            <a href="#" class="slds-card__header-link slds-truncate">
+                                {room.Name}
+                            </a>
+                        </h2>
+                    </header>
+                </div> -->
+                <div class="slds-card__body tile-class slds-card__body_inner slds-grid  slds-truncate_container_75 slds-m-left_xx-small slds-truncate">
+                    <p class="slds-align_absolute-center" style="padding-left:35%" >
+                        <span>Number of Persons : {Persons}</span>
+                    </p>
+                </div>
+                <footer class="slds-card__footer">
+                    <div>
+                        <span style="font-weight: bold; font-size: initial;">Total Amount : Rs.{showTotalPrice}</span>
+                    </div>
+                </footer>
+            </article>
+            
+            <article class="slds-size_3-of-5 tile-size">
+                <lightning-button variant="Brand" label="Go to Cart"  onclick={handleGoToCart} class="slds-m-left_xx-large"></lightning-button>
+            </article>
+        </div>
+    </div>
+</template>

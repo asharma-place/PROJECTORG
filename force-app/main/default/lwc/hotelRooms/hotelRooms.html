@@ -1,0 +1,132 @@
+<template>
+    <div class="slds-card slds-align_absolute-center" style="width:100%;" if:true={showRooms}>
+        <!-- <div class="slds-text-align_center" style="text-align: center;"> -->
+            <lightning-card title={rTitle}>
+                <!-- <h1>DELUX ROOMS</h1> -->
+            </lightning-card>
+        <!-- </div> -->
+    </div>
+
+    <lightning-layout>
+        <template if:true={showRooms}>
+            <template for:each={showRoomList} for:item="room">
+                <!-- <p key={acc.Id}>{acc.Name}</p> -->
+                <!-- <lightning-layout-item  key={room.Id} size="2" padding="around-small">
+                    <div class="slds-card" style="height: 300px;">
+                        <lightning-card>
+                            <h1 style="text-align:center; font-weight:bold; font-size:large">
+                             {room.Name}
+                            </h1>
+                            <br/>
+                            <p class="slds-p-horizontal_small">{room.Description}</p>
+                            <br/>
+                            <p class="slds-align_absolute-center slds-grid_vertical-align-end">PRICE : {room.Price}</p>
+                            <p slot="footer">
+                                <lightning-button label="old" slot="actions"></lightning-button>
+                                <lightning-button label="New" slot="actions" onclick={handleNew}></lightning-button>
+                            </p>
+                        </lightning-card>
+                    </div>
+                </lightning-layout-item> -->
+                <div key={room.Id} class="slds-col slds-size_3-of-12 slds-align_absolute-center slds-box course-tile" style="border: none; box-shadow:none">
+                    <article data-name={room.Id} class="slds-card slds-size_4-of-5 tile-size">
+                        <div class="slds-card__header">
+                            <header class="slds-align_absolute-center slds-has-flexi-truncate">
+                                <h2 class="slds-card__header-title" data-id={room.Id}>
+                                    <!-- <a href="#" class="slds-card__header-link slds-truncate"> -->
+                                        {room.Name}
+                                    <!-- </a> -->
+                                </h2>
+                            </header>
+                        </div>
+                        <div class="slds-card__body tile-class slds-card__body_inner slds-grid  slds-m-left_xx-small" style="height: 200px; overflow-wrap: break-word;">
+                            <!-- <p style="overflow-wrap: break-word;"> -->
+                                <span class="tile-text">{room.Description}</span>
+                            <!-- </p> -->
+                        </div>
+                        <footer class="slds-card__footer">
+                            <div>
+                                <span data-name={room.Id} title={room.Price} style="font-weight: bold; vertical-align: super; font-size: initial;">Price : ${room.Price}</span>
+                            </div>
+                            <div>
+                                <lightning-layout class="slds-align_absolute-center">
+                                    <lightning-layout-item>
+                                        <lightning-combobox
+                                        name="persons"
+                                        label=""
+                                        placeholder="Persons(1)"
+                                        value=""
+                                        role="number"
+                                        options={optionsPersons}
+                                        onchange={handleChangeNo}
+                                        variant="label-hidden"
+                                        accesskey={room.Id}
+                                        required
+                                    ></lightning-combobox>
+                                    </lightning-layout-item>
+                                    <lightning-button value={room.Id} data-id={room.Id} variant="Brand" label="Add to Cart"  onclick={handleAddToCart} class="slds-m-left_x-small"></lightning-button>
+                                </lightning-layout>
+                            </div>
+                        </footer>
+                    </article>
+                </div>
+                
+                <template if:true={isNewBooking}>
+                    <section key={room.Id} role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small"
+                        aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+                                <h2 id={room.Id} class="slds-modal__title slds-hyphenate">Book {room.Name}
+                                </h2>
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium" id={room.Id}>
+                            </div>
+                        </div>
+                    </section>
+                    <div key={room.id} class="slds-backdrop slds-backdrop_open"></div>
+                </template>
+
+            </template>
+        </template>   
+        <!-- <lightning-layout-item flexibility="auto" padding="around-small">
+            <div class="slds-card" style="height: 300px;">
+                <lightning-card>
+                    <h1 style="text-align:center; font-weight:bold; font-size:large">
+                     Card Title
+                    </h1>
+                    <br/>
+                    <p class="slds-p-horizontal_small">Card Body (custom component) s</p>
+                    <p slot="footer">
+                        <lightning-button label="old" slot="actions"></lightning-button>
+                        <lightning-button label="New" slot="actions"></lightning-button>
+                    </p>
+                </lightning-card>
+            </div>
+        </lightning-layout-item> -->
+    </lightning-layout>
+    <!-- <div if:true={showRooms}>
+        <lightning-layout if:true={showPaginator} class="slds-align_absolute-center">
+            <c-paginator  onprevious={previousHandler2} onnext={nextHandler2} onselected={changeHandler2} onfirstpage={firstpagehandler} onlastpage={lastpagehandler}></c-paginator>
+        </lightning-layout>
+    </div> -->
+
+    <div>
+        <br/>
+    </div>
+
+    <!-- <template if:true={isNewBooking}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small"
+            aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Book {room.Name}
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template> -->
+
+</template>

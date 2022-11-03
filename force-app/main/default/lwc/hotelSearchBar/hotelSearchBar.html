@@ -1,0 +1,19 @@
+<template>
+    <lightning-layout vertical-align="end">   
+        <lightning-layout-item style="width:60%">
+            <lightning-input type="search"
+            data-id="searchRoom"
+             value={searchRoomKey}
+             label=""
+             placeholder="Search your Room"
+             onchange={handleSearchRoomChange}
+             ></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item>
+            <lightning-button variant="brand" label="Search" icon-name="utility:search" onclick={handleSearchRoomClick} class="slds-m-left_x-small"></lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item>
+            <lightning-button variant="neutral" label="Clear" icon-name="utility:close" onclick={handleClearSearchRoomClick} class="slds-m-left_x-small"></lightning-button>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

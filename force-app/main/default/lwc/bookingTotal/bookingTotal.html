@@ -1,0 +1,21 @@
+<template>
+    <div class="slds-col slds-size_7-of-12 slds-align_absolute-center slds-box" style="border: none; box-shadow:none; padding-left: 19%">
+        <article class="slds-card slds-size_5-of-5 tile-size slds-m-left_xx-large">
+            <div class="slds-card__body tile-class slds-card__body_inner slds-grid  slds-truncate_container_75 slds-m-left_xx-small slds-truncate">
+                <p class="slds-align_absolute-center" style="padding-left:35%" >
+                    <span>Number of Guests : {guests}</span>
+                </p>
+            </div>
+            <footer class="slds-card__footer">
+                <div>
+                    <span style="font-weight: bold; font-size: initial;">Total Amount : ${totalAmount}</span>
+                </div>
+            </footer>
+        </article>
+        
+        <article class="slds-size_3-of-5 tile-size">
+            <lightning-button variant="success" label="Go to Cart" icon-name="utility:cart" onclick={handleGoToCart} class="slds-m-left_xx-large"
+            style="width: 55%;font-size: large;"></lightning-button>
+        </article>
+    </div>
+</template>

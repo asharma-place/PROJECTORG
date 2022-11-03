@@ -1,0 +1,26 @@
+<template>
+    <lightning-layout>
+        <lightning-layout-item>
+            <lightning-button label="Previous" data-name="Previous" icon-name="utility:chevronleft" onclick={previousHandler1}></lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item>
+                <lightning-button label="First Page" icon-name="utility:chevronleft" onclick={FirstPageHandler1}></lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item>
+                <select class="slds-select slds-text-color_success" name = "optionSelect" onchange={changeHandler} >
+                        <option value="2">Page size</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select> 
+        </lightning-layout-item>    
+        <lightning-layout-item flexibility="grow"></lightning-layout-item>
+        <lightning-layout-item>
+                <lightning-button label="Last Page" icon-name="utility:chevronright" icon-position="right" onclick={LastPageHandler1}></lightning-button>
+            </lightning-layout-item>
+        <lightning-layout-item>
+            <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right" onclick={nextHandler1}></lightning-button>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

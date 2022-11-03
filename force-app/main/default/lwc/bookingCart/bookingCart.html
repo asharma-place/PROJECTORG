@@ -1,0 +1,38 @@
+<template>
+    <div>    
+        <div class="slds-card " style="height: 400px;">
+            <header class="slds-p-around_medium" style="font-size:xx-large;">
+                <lightning-icon icon-name="utility:checkout"></lightning-icon>
+                Cart
+            </header>
+            <div class="slds-p-around_medium">
+                <c-l-w-c-custom-datatable-type
+                    key-field="roomId"
+                    data={cartList} 
+                    columns={columns}
+                    onpicklistchanged={handlePicklistChange}
+                    onsave={handleSave}
+                    draft-values={draftValues}
+                    onrowaction={handleRowAction}
+                    oncellchange={handleCellChange}
+                    oncancel={handleCancel}
+                    hide-checkbox-column>
+                </c-l-w-c-custom-datatable-type>
+            </div>
+        </div>
+        <div class="slds-card">
+            <footer class="slds-card__footer">
+                <div>
+                    <span style="font-weight: bold; font-size: larger;">Number of Persons : {finalGuests}</span>
+                </div>
+                <div>
+                    <span style="font-weight: bold; font-size: large;">Total Amount : ${finalCartAmount}</span>
+                </div>
+            </footer>
+        </div>
+        <footer class="slds-card slds-card__footer">
+                <lightning-button variant="neutral" label="Go Back" icon-name="" onclick={handleGoBack} class="slds-m-left_x-small"></lightning-button>
+                <lightning-button variant="brand" label="Confirm Order" icon-name="" onclick={handleConfirmOrder} class="slds-m-left_large"></lightning-button>
+        </footer>
+    </div>
+</template>

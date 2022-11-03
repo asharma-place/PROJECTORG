@@ -1,0 +1,87 @@
+<template>
+
+    <div class="slds-align_absolute-center">
+        <template if:true={showSpinner}>
+            <lightning-spinner variant="brand" alternative-text="Loading"></lightning-spinner>
+        </template>
+    </div>
+    
+    <template if:false={showSpinner}>
+        <div if:true={showCart}>
+            <c-booking-cart cart-total={totalPrice} cart-guests={personsCount} cart-list={bookingList} customer={sConValue} ongohome={handleGoHome}></c-booking-cart>
+        </div>
+    
+        <div if:false={showCart}>
+            <lightning-layout if:true={showRadioFilter}>
+            
+                <lightning-layout-item padding="around-small" size="3">
+                    <c-custom-lookup-l-w-c 
+                     name="Contact Lookup" lookup-label="" object-api-name="Contact"
+                     selected-value={selectedContactName}  icon-name="standard:contact" 
+                     onrecordselection={handleSearchContact}
+                    ></c-custom-lookup-l-w-c>
+                </lightning-layout-item>
+        
+                <lightning-layout-item padding="around-small" size="9">
+                    <c-hotel-search-bar search-room-key={searchKey} oncallsearchrooms={handleSearchRooms} oncallclearsearchrooms={handleClearSearchRooms}></c-hotel-search-bar>
+                </lightning-layout-item>
+        
+            </lightning-layout>
+        
+            <lightning-layout horizontal-align="center" if:true={showRadioFilter}>
+                <c-Radio-Group
+                              label=""
+                              options={optionsRoomType}
+                              value={radioTypeSelected}
+                              orientation="horizontal"
+                              onchange={handleRadioFilter}
+                              ></c-Radio-Group>
+            </lightning-layout>
+            <br/>
+        
+            <template if:true={showRadioFilter}>
+                <template for:each={roomTypeList} for:item="roomType">
+                    <lightning-layout key={roomType.value}>
+                        <lightning-layout-item size="12" oncallroombook={handleCallRoomBook} onremovebooking={handleRemoveBooking}>
+                            <c-room-list room-type={roomType.value} booking-room-list={selectedRoomIdList} page_size={pageSize} v-offset={offSet} radio-all={radioTypeSelected} search-room-key={searchKey} oncallroomcount={handleRoomCount} style="width:100%;"></c-room-list>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </template>
+            </template>
+            <br/>
+        
+            <template if:true={showTotal}>
+                <lightning-layout horizontal-align="center" vertical-align="end">
+                    <lightning-layout-item padding="around-small">
+                        <lightning-button value="" data-id="" variant="Neutral" icon-name="utility:chevronleft" label="Previous" onclick={handlePrevious} disabled={disablePrevious} class="slds-m-left_x-small"></lightning-button>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small">
+                        Page {currentPage} of {maxPage}
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small">
+                        <lightning-button value="" data-id="" variant="Brand" label="Next" icon-name="utility:chevronright" icon-position="right" onclick={handleNext} disabled={disableNext} class="slds-m-left_x-small"></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <lightning-layout horizontal-align="center">
+                    <lightning-layout-item size="12" padding="around-small">
+                        <c-booking-total total-amount={totalPrice} guests={personsCount} ongotocart={handleGoToCart}></c-booking-total>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <!-- <c-booking-total total-amount={totalPrice} guests={personsCount} ongotocart={handleGoToCart}></c-booking-total> -->
+                <!-- <lightning-layout horizontal-align="center" vertical-align="end">
+                    <lightning-layout-item padding="around-small">
+                        <lightning-button value="" data-id="" variant="Neutral" icon-name="utility:chevronleft" label="Previous" onclick={handlePrevious} disabled={disablePrevious} class="slds-m-left_x-small"></lightning-button>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small">
+                        Page {currentPage} of {maxPage}
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small">
+                        <lightning-button value="" data-id="" variant="Brand" label="Next" icon-name="utility:chevronright" icon-position="right" onclick={handleNext} disabled={disableNext} class="slds-m-left_x-small"></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout> -->
+            </template>
+        </div>    
+    </template>
+
+</template>
